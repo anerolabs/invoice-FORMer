@@ -7,17 +7,17 @@ const App = () => {
   const [ isManaged, setIsManaged ] = useState(false);
   const [ invoices, setInvoices ] = useState([]);
 
-  const getInvoices = () => {
+  const fetchInvoices = () => {
     console.log('-> Fetching invoices');
   };
 
-  const getBusinessProfile = () => {
+  const fetchBusinessProfile = () => {
     console.log('-> Fetching business details');
   };
 
   useEffect(() => {
-    getInvoices();
-    if (!isManaged) { getBusinessProfile(); }
+    fetchInvoices();
+    if (!isManaged) { fetchBusinessProfile(); }
   }, []);
 
   return ( <div className='container'>
