@@ -4,6 +4,7 @@ import App from './App.jsx';
 
 const emptyProfile = {
   managerName: '',
+  managerId: null,
   bName: '',
   bPhone: '',
   bLogo: '',

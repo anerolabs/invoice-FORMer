@@ -18,6 +18,7 @@ const App = ({emptyProfile}) => {
     //Build Business Profile Object
     const updatedProfile = {
       managerName: '',
+      managerId: null,
       bName: '',
       bPhone: '',
       bLogo: '',
@@ -37,7 +38,7 @@ const App = ({emptyProfile}) => {
       <h1>Invoice FORMer</h1>
       <ManagerPanel  isManaged={isManaged}
         savedProfile={savedProfile} />
-      <Linker />
+      <Linker isManaged={isManaged} />
       <InvoiceList />
     </div>
   )

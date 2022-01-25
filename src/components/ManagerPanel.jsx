@@ -4,12 +4,17 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
   const [ managerName, setManagerName ] = useState('');
   const [ businessProfile, setBusinessProfile ] = useState(savedProfile);
 
+  const handleManagerFormSubmit = (e) => {
+    e.preventDefault();
+    console.log('handle submit');
+  }
+
   return ( <div className='panel'>
     <h1>Manager Panel</h1>
     <h2>Welcome!</h2>
     <p>To create an invoice template and save invoices, tell us a little about your business.</p>
 
-    <form>
+    <form onSubmit={(e) => { handleManagerFormSubmit(e) }}>
     <label>
         Your Name:
         <input type='text' value={businessProfile.managerName}

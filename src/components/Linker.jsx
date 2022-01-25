@@ -1,9 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
-const Linker = () => {
+const Linker = ({isManaged}) => {
+  const [ spreadsheetURL, setSpreadsheetURL ] = useState('');
+
+  const handleLinkerSubmit = (e) => {
+    e.preventDefault();
+    console.log('--> Linker Submit Clicked');
+  };
+
   return (
+    <div className='panel'>
     <h1>Link your Form</h1>
 
+    <form onSubmit={(e) => { handleLinkerSubmit(e) }}>
+      <input type='text' value={spreadsheetURL}
+        onChange={(e) => { setSpreadsheetURL(e.target.value) }} />
+      <p>Need help finding your spreadsheet link? Click <a href='/'>here</a>.
+      </p>
+      <input type='submit' className='btn submit'
+        value='Generate Invoices!' />
+    </form>
+    </div>
   )
 };
 
