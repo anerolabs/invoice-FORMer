@@ -18,9 +18,10 @@ const invoice = require('../database/controllers/invoice.js');
 //   //TODOa
 // });
 
-// app.post('/invoices', (req, res) => {
-//   //TODO
-// });
+app.post('/invoices', (req, res) => {
+  console.log('made it to express router');
+  invoice.createInvoices(req, res);
+});
 
 // app.get('/business', (req, res) => {
 //   //TODO
