@@ -6,7 +6,7 @@ import InvoiceList from './components/InvoiceList.jsx';
 const App = ({emptyProfile}) => {
   const [ isManaged, setIsManaged ] = useState(false);
   const [ savedProfile, setSavedProfile ] = useState(emptyProfile);
-  const [ invoices, setInvoices ] = useState([]);
+  const [ invoices, setInvoices ] = useState(["1", "2"]);
 
   const fetchInvoices = () => {
     console.log('-> Fetching invoices');
