@@ -8,6 +8,7 @@ const App = ({emptyProfile}) => {
   const [ savedProfile, setSavedProfile ] = useState(emptyProfile);
   const [ invoices, setInvoices ] = useState(["1", "2"]);
 
+
   const fetchInvoices = () => {
     console.log('-> Fetching invoices');
   };
