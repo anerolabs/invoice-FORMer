@@ -6,6 +6,7 @@ const Linker = ({isManaged}) => {
   const handleLinkerSubmit = (e) => {
     e.preventDefault();
     console.log('--> Linker Submit Clicked');
+    //TODO: Parse spreadsheet and POST request
   };
 
   return (

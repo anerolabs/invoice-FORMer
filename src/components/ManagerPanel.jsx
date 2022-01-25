@@ -7,6 +7,7 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
   const handleManagerFormSubmit = (e) => {
     e.preventDefault();
     console.log('handle submit');
+    //TODO: PUT /business request
   }
 
   return ( <div className='panel'>
