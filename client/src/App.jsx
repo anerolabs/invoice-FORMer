@@ -3,9 +3,9 @@ import ManagerPanel from './components/ManagerPanel.jsx';
 import Linker from './components/Linker.jsx';
 import InvoiceList from './components/InvoiceList.jsx';
 
-const App = ({emptyProfile}) => {
+const App = ({devProfile}) => {
   const [ isManaged, setIsManaged ] = useState(false);
-  const [ savedProfile, setSavedProfile ] = useState(emptyProfile);
+  const [ savedProfile, setSavedProfile ] = useState(devProfile);
   const [ invoices, setInvoices ] = useState(["1", "2"]);
 
   const fetchInvoices = () => {
@@ -18,7 +18,6 @@ const App = ({emptyProfile}) => {
     //Build Business Profile Object
     const updatedProfile = {
       managerName: '',
-      managerId: null,
       bName: '',
       bPhone: '',
       bLogo: '',
