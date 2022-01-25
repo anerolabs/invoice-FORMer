@@ -23,12 +23,6 @@ const config = {
         ]
       }
     ]
-  },
-  devServer: {
-    open: true,
-    'static': {
-      directory: './client/dist'
-    }
   }
 };
 
