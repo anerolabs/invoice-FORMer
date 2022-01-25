@@ -3,8 +3,9 @@ import ManagerPanel from './components/ManagerPanel.jsx';
 import Linker from './components/Linker.jsx';
 import InvoiceList from './components/InvoiceList.jsx';
 
-const App = () => {
+const App = ({emptyProfile}) => {
   const [ isManaged, setIsManaged ] = useState(false);
+  const [ savedProfile, setSavedProfile ] = useState(emptyProfile);
   const [ invoices, setInvoices ] = useState([]);
 
   const fetchInvoices = () => {
@@ -13,6 +14,18 @@ const App = () => {
 
   const fetchBusinessProfile = () => {
     console.log('-> Fetching business details');
+
+    //Build Business Profile Object
+    const updatedProfile = {
+      managerName: '',
+      bName: '',
+      bPhone: '',
+      bLogo: '',
+      bWebsite: '',
+      invoiceMessage: ''
+    }
+
+    //setBusinessProfile(businessProfile);
   };
 
   useEffect(() => {
@@ -22,7 +35,8 @@ const App = () => {
 
   return ( <div className='container'>
       <h1>Invoice FORMer</h1>
-      <ManagerPanel />
+      <ManagerPanel  isManaged={isManaged}
+        savedProfile={savedProfile} />
       <Linker />
       <InvoiceList />
     </div>
