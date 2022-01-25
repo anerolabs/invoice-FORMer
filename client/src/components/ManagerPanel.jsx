@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ManagerPanel = ({savedProfile, isManaged}) => {
   const [ managerName, setManagerName ] = useState('');
@@ -6,8 +7,15 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
 
   const handleManagerFormSubmit = (e) => {
     e.preventDefault();
-    console.log('handle submit');
-    //TODO: PUT /business request
+    console.log('--> Handle submit clicked');
+
+    axios.put('/business', businessProfile)
+      .then((results) => {
+        console.log('Client received response!', results);
+      })
+      .catch((error) => {
+        console.log('Error receiving response from db.')
+      })
   }
 
   return ( <div className='panel'>
@@ -41,7 +49,7 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
       <label>
         Business Logo:
         <input type='file' value={businessProfile.bLogo}
-          onChange={(e) => {setBusinessProfile({...businessProfile, bLogo: e.target.value})}} required />
+          onChange={(e) => {setBusinessProfile({...businessProfile, bLogo: e.target.value})}} />
       </label>
       <label>
         Invoice Message:

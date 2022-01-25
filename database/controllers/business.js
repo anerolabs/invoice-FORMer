@@ -1,3 +1,4 @@
+const db = require('../index.js');
 const Profile = require('../models/business.js');
 
 module.exports = {
@@ -7,6 +8,21 @@ module.exports = {
   },
   updateBusinessProfile: (req, res) => {
     console.log('Made it to updateBusiness Profile');
-    //TODO: add or update business profile
+
+    console.log(req.body);
+
+    const updatedProfile = {
+
+    };
+
+    db.Profile.findOneAndUpdate({bName: req.body.bName}, updatedProfile, {upsert: true})
+      .then((results) => {
+        console.log(results);
+
+        res.status(204).send('');
+      })
+      .catch((error) => {
+        console.log('Error adding or updating the business profile');
+      })
   }
 }

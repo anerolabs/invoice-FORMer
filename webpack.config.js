@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
+  mode: 'development',
   entry: '/client/src/index.js',
   output: {
     path: path.resolve(__dirname, 'client/dist'),
@@ -19,7 +20,6 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
-          'sass-loader'
         ]
       }
     ]
