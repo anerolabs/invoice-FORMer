@@ -39,7 +39,7 @@ const App = ({emptyProfile}) => {
       <ManagerPanel  isManaged={isManaged}
         savedProfile={savedProfile} />
       <Linker isManaged={isManaged} />
-      <InvoiceList />
+      <InvoiceList invoices={invoices} />
     </div>
   )
 };

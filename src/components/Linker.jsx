@@ -11,11 +11,11 @@ const Linker = ({isManaged}) => {
 
   return (
     <div className='panel'>
-    <h1>Link your Form</h1>
-
+    <h1>Generate Invoices</h1>
     <form onSubmit={(e) => { handleLinkerSubmit(e) }}>
       <input type='text' value={spreadsheetURL}
-        onChange={(e) => { setSpreadsheetURL(e.target.value) }} />
+        onChange={(e) => { setSpreadsheetURL(e.target.value) }}
+        placeholder='Link your Google Forms result spreadsheet here...' />
       <p>Need help finding your spreadsheet link? Click <a href='/'>here</a>.
       </p>
       <input type='submit' className='btn submit'
