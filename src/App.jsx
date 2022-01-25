@@ -4,6 +4,22 @@ import Linker from './components/linker.jsx';
 import InvoiceList from './components/invoiceList.jsx';
 
 const App = () => {
+  const [ isManaged, setIsManaged ] = useState(false);
+  const [ invoices, setInvoices ] = useState([]);
+
+  const getInvoices = () => {
+    console.log('-> Fetching invoices');
+  };
+
+  const getBusinessProfile = () => {
+    console.log('-> Fetching business details');
+  };
+
+  useEffect(() => {
+    getInvoices();
+    if (!isManaged) { getBusinessProfile(); }
+  }, []);
+
   return ( <div className='container'>
       <h1>Invoice FORMer</h1>
       <ManagerPanel />
