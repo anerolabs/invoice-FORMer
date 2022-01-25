@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ManagerPanel from './components/managerPanel.jsx';
-import Linker from './components/linker.jsx';
-import InvoiceList from './components/invoiceList.jsx';
+import ManagerPanel from './components/ManagerPanel.jsx';
+import Linker from './components/Linker.jsx';
+import InvoiceList from './components/InvoiceList.jsx';
 
 const App = () => {
   const [ isManaged, setIsManaged ] = useState(false);
