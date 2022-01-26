@@ -1,4 +1,5 @@
 import React from 'react';
+import markdownParser from '../utils/markdownParser.jsx';
 
 const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
   let dateArray = invoiceData.orderDate.split('T');
@@ -10,6 +11,9 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
   console.log(invoiceData);
   console.log(savedProfile);
   console.log(receipt);
+
+  //TODO: convert markdown in invoice message to HTML
+  const parsedMessage = savedProfile.invoiceMessage;
 
   return ( <div className='modal-fill'>
       <div className='modal-content'>
@@ -47,7 +51,7 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
 
         <div className='modal-body'>
           <div className='i-msg'>
-            {savedProfile.invoiceMessage}
+            {parsedMessage}
           </div>
           <div className='i-h1'>
             Order Details
@@ -76,7 +80,7 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
           </div>
           <div className='i-total'>
             <span className='i-t-s'>
-              Subtotal: ${invoiceData.subTotal.toFixed(2)}
+              Subtotal: {'$'}{invoiceData.subTotal.toFixed(2)}
             </span>
             <span className='i-t-x'>
               Tax: $TAX HERE

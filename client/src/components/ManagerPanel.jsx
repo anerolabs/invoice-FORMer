@@ -46,12 +46,12 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
         <input type='text' value={businessProfile.bWebsite}
         onChange={(e) => {setBusinessProfile({...businessProfile, bWebsite: e.target.value})}} />
       </label>
-      {/* <label>
-        Business Logo:
-        <input type='text' value={businessProfile.bLogo}
-          onChange={(e) => {setBusinessProfile({...businessProfile, bLogo: e.target.value})}
-          placeholder='Logo image URL here'} />
-      </label> */}
+      <label>
+        Business Logo URL:
+        <input type='text' value={businessProfile.bLogoUrl}
+          onChange={(e) => {setBusinessProfile({...businessProfile, bLogoUrl: e.target.value})}}
+          placeholder='Logo image URL here' />
+      </label>
       <label>
         Invoice Message:
         <textarea value={businessProfile.invoiceMessage}
