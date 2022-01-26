@@ -8,9 +8,9 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
 
   const receipt = JSON.parse(invoiceData.receipt);
 
-  console.log(invoiceData);
-  console.log(savedProfile);
-  console.log(receipt);
+  const salesTax = (savedProfile.salesTax * invoiceData.subTotal / 100);
+  const subTotal = invoiceData.subTotal;
+  const total = salesTax + subTotal;
 
   //TODO: convert markdown in invoice message to HTML
   const parsedMessage = savedProfile.invoiceMessage;
@@ -40,9 +40,9 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
             <span className='i-num'>
               Invoice #{invoiceData.invoiceNumber.toString().padStart(4, "0")}
             </span>
-            <span className='i-h2'>Customer Name:</span>
+            <span className='i-h2'>Customer:</span>
             <span className='i-v'>{invoiceData.first} {invoiceData.last}</span>
-            <span className='i-h2'>Customer Name:</span>
+            <span className='i-h2'>Customer Email:</span>
             <span className='i-v'>{invoiceData.email}</span>
             <span className='i-h2'>Order Placed:</span>
             <span className='i-v'>{date} {time}</span>
@@ -80,13 +80,13 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
           </div>
           <div className='i-total'>
             <span className='i-t-s'>
-              Subtotal: {'$'}{invoiceData.subTotal.toFixed(2)}
+              Subtotal: {'$'}{subTotal.toFixed(2)}
             </span>
             <span className='i-t-x'>
-              Tax: $TAX HERE
+              Tax: {'$'}{salesTax.toFixed(2)}
             </span>
             <span className='i-t-t'>
-              Total: ${invoiceData.subTotal.toFixed(2)}
+              Total: {'$'}{total.toFixed(2)}
             </span>
           </div>
         </div>
