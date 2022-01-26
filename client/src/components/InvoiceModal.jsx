@@ -4,16 +4,31 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
   console.log(invoiceData);
   console.log(savedProfile);
 
-  return ( <div className='modal-fill'
-    onClick={() => {expandInvoice()}}>
+  return ( <div className='modal-fill'>
       <div className='modal-content'>
+        <div className='modal-nav'>
+        <span className='m-n p'
+          onClick={() => {window.print()}}>
+            Print
+          </span>
+          <span className='m-n d'>
+            Download
+          </span>
+          <span className='m-n c'
+            onClick={() => {expandInvoice()}}>
+            Close
+          </span>
+        </div>
 
         <div className='modal-header'>
           <div className='m-h-left'>
-            <img src='./img/wingsandrings.jpg' />
+            <img src={savedProfile.bLogoUrl} />
           </div>
           <div className='m-h-right'>
             <span className='i-title'>Order Invoice</span>
+            <span className='i-num'>
+              Invoice #{invoiceData.invoiceNumber.toString().padStart(4, "0")}
+            </span>
             <span className='i-h2'>Customer Name:</span>
             <span className='i-v'>{invoiceData.first} {invoiceData.last}</span>
             <span className='i-h2'>Customer Name:</span>

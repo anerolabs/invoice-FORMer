@@ -80,7 +80,7 @@ li:hover {
 .modal-content {
   background-color: white;
   width: 80%;
-  max-width: 590px;
+  max-width: 500px;
   height: 70%;
   border: 1px solid black;
   border-radius: 5px;
@@ -89,6 +89,25 @@ li:hover {
   flex-direction: column;
   justify-content: space-between;
   overflow-y: scroll;
+}
+
+.modal-nav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  margin-bottom: 1em;
+}
+
+.m-n {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: .8rem;
+  color: rgb(99, 99, 99);
+}
+
+.m-n:hover {
+  cursor: pointer;
+  color:rgba(43, 43, 43);
 }
 
 .modal-header {
@@ -110,6 +129,11 @@ li:hover {
   font-weight: bold;
   font-size: 1.8rem;
   text-transform: uppercase;
+}
+
+.i-num {
+  text-transform: uppercase;
+  margin-bottom: .5em
 }
 
 .i-h2 {
@@ -146,4 +170,15 @@ li:hover {
 
 .modal-footer {
   text-align: center;
+}
+
+@page {
+  size: auto;
+  margin: 0mm;
+}
+
+@media print {
+  .modal-nav {
+    display: none;
+  }
 }
