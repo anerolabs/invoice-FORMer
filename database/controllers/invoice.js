@@ -8,8 +8,9 @@ let invoiceCounter = 1;
 module.exports = {
   getInvoices: (req, res) => {
     console.log('Made it to getInvoices');
+    console.log(req.query, req.params);
     //TODO: find all invoices from db, send response
-    Invoice.find({}).sort({date: 'desc'}).exec((err, invoices) => {
+    Invoice.find({bName: req.query.business}).sort({date: 'desc'}).exec((err, invoices) => {
       if (err) {
         res.status(500).send('Failed to retrieve invoices from the database.', error)
       } else {
@@ -21,6 +22,7 @@ module.exports = {
     //TODO: Follow the googleapis documentation to for proper oAuth
     console.log('Made it to createInvoice');
     const spreadsheetId = req.body.spreadsheetId;
+    const bName = req.body.bName;
 
     const auth = new google.auth.GoogleAuth({
       keyFile: 'credentials.json',
@@ -83,7 +85,7 @@ module.exports = {
 
       let invoiceNumber = invoiceCounter.toString().padStart(4, "0");
 
-      const orderData = { orderDate, email, first, last, phone, receipt, subTotal, invoiceNumber };
+      const orderData = { orderDate, email, first, last, phone, receipt, subTotal, invoiceNumber, bName };
 
       invoiceCounter++;
 

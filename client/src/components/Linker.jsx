@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Linker = ({isManaged, fetchInvoices}) => {
-  const [ spreadsheetURL, setSpreadsheetURL ] = useState('https://docs.google.com/spreadsheets/d/1_ISTRfVa1Pe6hVi_ObqJ1K8Y3A98U3IijW6XXGeKls8/edit?resourcekey#gid=589615645');
+const Linker = ({isManaged, fetchInvoices, savedProfile}) => {
+  const [ spreadsheetURL, setSpreadsheetURL ] = useState('');
   const [ statusMessage, setStatusMessage ] = useState('');
 
 
@@ -18,7 +18,7 @@ const Linker = ({isManaged, fetchInvoices}) => {
       const spreadsheetID = urlElements[dIndex +1 ];
       console.log(spreadsheetID);
 
-      axios.post('/invoices', {spreadsheetId: spreadsheetID})
+      axios.post('/invoices', {spreadsheetId: spreadsheetID, bName: savedProfile.bName})
       .then((results) => {
         console.log('-->Successful POST /invoices');
         fetchInvoices();
@@ -31,24 +31,31 @@ const Linker = ({isManaged, fetchInvoices}) => {
 
   useEffect(() => {
     //setStatusMessage('');
-  }, [])
+  }, []);
+
+  let content = <>
+    To generate invoices, please fill out the details on the left or search for your business if you've visited before.
+  </>;
+
+  if(isManaged) {
+    content = <form onSubmit={(e) => { handleLinkerSubmit(e) }}>
+    <p>Need help finding your spreadsheet link? Click <a href='/'>here</a>.</p>
+
+    <input type='text' value={spreadsheetURL}
+      onChange={(e) => { setSpreadsheetURL(e.target.value) }}
+      placeholder='Link your Google Forms result spreadsheet here...' />
+
+    <input type='submit' className='btn submit'
+      value='Generate Invoices!' />
+
+    <span className='status-msg'>{statusMessage}</span>
+  </form>
+  }
 
   return (
     <div className='panel'>
     <h1>Generate Invoices</h1>
-
-    <form onSubmit={(e) => { handleLinkerSubmit(e) }}>
-      <p>Need help finding your spreadsheet link? Click <a href='/'>here</a>.</p>
-
-      <input type='text' value={spreadsheetURL}
-        onChange={(e) => { setSpreadsheetURL(e.target.value) }}
-        placeholder='Link your Google Forms result spreadsheet here...' />
-
-      <input type='submit' className='btn submit'
-        value='Generate Invoices!' />
-
-      <span className='status-msg'>{statusMessage}</span>
-    </form>
+    {content}
     </div>
   )
 };

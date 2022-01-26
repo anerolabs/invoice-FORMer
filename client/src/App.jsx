@@ -11,8 +11,9 @@ const App = ({devProfile}) => {
   const [ savedProfile, setSavedProfile ] = useState(devProfile);
   const [ invoices, setInvoices ] = useState([]);
 
-  const fetchInvoices = () => {
-    axios('/invoices')
+  const fetchInvoices = (businessName) => {
+    businessName = businessName || savedProfile.bName;
+    axios(`/invoices?business=${businessName}`)
       .then((results) => {
         setInvoices(results.data);
       })
@@ -39,7 +40,7 @@ const App = ({devProfile}) => {
   };
 
   useEffect(() => {
-    fetchInvoices();
+    //fetchInvoices();
     //TODO: Fetch the business profile from the DB if
     // there is one saved
     //if (!isManaged) { fetchBusinessProfile(); }
@@ -53,12 +54,14 @@ const App = ({devProfile}) => {
           isManaged={isManaged}
           savedProfile={savedProfile}
           setSavedProfile={setSavedProfile}
-          setIsManaged={setIsManaged} />
+          setIsManaged={setIsManaged}
+          fetchInvoices={fetchInvoices} />
       </div>
       <div className='right'>
         <Linker
           isManaged={isManaged}
-          fetchInvoices={fetchInvoices} />
+          fetchInvoices={fetchInvoices}
+          savedProfile={savedProfile} />
         <InvoiceList
           invoices={invoices}
           savedProfile={savedProfile} />
