@@ -33,6 +33,13 @@ p {
   border-radius: 3px;
 }
 
+.sub-panel {
+  padding: 1em;
+  margin: 1em;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -40,6 +47,13 @@ form {
 
 input {
   margin: .5em 0;
+}
+
+textarea {
+  display: block;
+  width: 90%;
+  height: 100px;
+  resize: none;
 }
 
 .btn:hover {
@@ -81,7 +95,7 @@ li:hover {
   background-color: white;
   width: 80%;
   max-width: 500px;
-  height: 70%;
+  height: 85%;
   border: 1px solid black;
   border-radius: 5px;
   padding: 1.5em 3em;

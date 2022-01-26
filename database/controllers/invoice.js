@@ -13,7 +13,6 @@ module.exports = {
       if (err) {
         res.status(500).send('Failed to retrieve invoices from the database.', error)
       } else {
-        console.log(invoices);
         res.status(200).json(invoices);
       }
     });
@@ -22,7 +21,6 @@ module.exports = {
     //TODO: Follow the googleapis documentation to for proper oAuth
     console.log('Made it to createInvoice');
     const spreadsheetId = req.body.spreadsheetId;
-    console.log(spreadsheetId);
 
     const auth = new google.auth.GoogleAuth({
       keyFile: 'credentials.json',
@@ -66,7 +64,6 @@ module.exports = {
     const invoicePromises = invoices.map((invoice) => {
       //Get Invoice Data
       const [ orderDate, email, first, last, phone, ...products ] = invoice;
-      console.log(products);
 
       //Assemble receipt
       let receipt = {};

@@ -1,56 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SearchBusiness from './SearchBusiness.jsx';
 
-const ManagerPanel = ({savedProfile, isManaged, setSavedProfile}) => {
-  const [ managerName, setManagerName ] = useState('');
+const ManagerPanel = ({savedProfile, isManaged, setSavedProfile, setIsManaged}) => {
   const [ businessProfile, setBusinessProfile ] = useState(savedProfile);
-  const [ lookupBusiness, setLookupBusiness ] = useState('');
 
   const handleManagerFormSubmit = (e) => {
     e.preventDefault();
+
     console.log('--> Handle submit clicked');
 
     axios.put('/business', businessProfile)
       .then((results) => {
         console.log('Client received response!', results);
         //TODO: add user status message
+        setIsManaged(true);
       })
       .catch((error) => {
         //TODO: add user status message
         console.log('Error receiving response from db.')
-      })
+      });
   }
 
-  const handleLookupBusiness = (e) => {
+  const handleLookupBusiness = (e, lookupBusiness) => {
     e.preventDefault();
-    console.log('--> Lookup business clicked');
 
-    axios.get(`/business?name=${lookupBusiness}`)
-      .then((results) => {
-        console.log('Client received response!', results);
-        setSavedProfile(results.data[0]);
-        setBusinessProfile(results.data[0]);
-      })
-      .catch((error) => {
-        console.log('Error receiving response from db.')
-      })
+    if(lookupBusiness) {
+      axios.get(`/business?name=${lookupBusiness}`)
+        .then((results) => {
+          setSavedProfile(results.data[0]);
+          setBusinessProfile(results.data[0]);
+          setIsManaged(true);
+        })
+        .catch((error) => {
+          console.log('Error receiving response from db.');
+        });
+    }
+  }
+
+
+  let panelMessage = <>
+    <h2>Welcome!</h2>
+    <p>To create your invoice template and save invoices, tell us a little about your business.</p>
+    <SearchBusiness handleLookupBusiness={handleLookupBusiness} />
+    </>;
+
+  if (isManaged) {
+    panelMessage = <>
+    <h2>Welcome back, {businessProfile.managerName}!</h2>
+    <p>If you need to update your invoice template, edit the fields below and then click submit.</p>
+    </>
   }
 
   return ( <div className='panel'>
     <h1>Manager Panel</h1>
-    <h2>Welcome!</h2>
-    <p>To create your invoice template and save invoices, tell us a little about your business.</p>
-
-    Have you been here before?
-    Type in your business name to pull up your invoices.
-    <form onSubmit={(e) => { handleLookupBusiness(e) }}>
-      <label>
-        <input type='text' value={lookupBusiness}
-          onChange={(e) => {setLookupBusiness(e.target.value)}} />
-      </label>
-      <input type='submit' className='btn submit'
-        value={isManaged ? 'Update' : 'Submit'} />
-    </form>
+    {panelMessage}
 
     <form onSubmit={(e) => { handleManagerFormSubmit(e) }}>
     <label>

@@ -52,7 +52,8 @@ const App = ({devProfile}) => {
         <ManagerPanel
           isManaged={isManaged}
           savedProfile={savedProfile}
-          setSavedProfile={setSavedProfile} />
+          setSavedProfile={setSavedProfile}
+          setIsManaged={setIsManaged} />
       </div>
       <div className='right'>
         <Linker
