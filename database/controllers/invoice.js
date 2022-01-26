@@ -1,6 +1,10 @@
 const Invoice = require('../models/invoice.js');
 const { google } = require('googleapis');
 
+let invoiceCounter = "1";
+let invoiceNumber = invoiceCounter.padStart(4, "0");
+
+
 module.exports = {
   getInvoices: (req, res) => {
     console.log('Made it to getInvoices');

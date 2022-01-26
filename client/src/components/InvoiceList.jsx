@@ -5,13 +5,16 @@ import InvoiceModal from './InvoiceModal.jsx';
 
 const InvoiceList = ({invoices}) => {
   const [ showModal, setShowModal ] = useState(false);
+  const [ currentInvoice, setCurrentInvoice ] = useState(1);
 
-  const expandInvoice = () => {
+  const expandInvoice = (targetInvoice) => {
+    setCurrentInvoice(targetInvoice);
     setShowModal(!showModal);
   }
   let invoiceModal = '';
   if (showModal) {
-    invoiceModal = <InvoiceModal expandInvoice={expandInvoice} />
+    invoiceModal = <InvoiceModal expandInvoice={expandInvoice}
+      targetInvoice={invoices[currentInvoice]} />
   }
 
   return ( <div className='panel'>
@@ -21,6 +24,7 @@ const InvoiceList = ({invoices}) => {
       <ol className='invoice-list'>
         {invoices.map((invoice, i) => {
           return <Invoice key={i}
+            invoiceIndex={i}
             invoice={invoice}
             expandInvoice={expandInvoice} />;
         })}
