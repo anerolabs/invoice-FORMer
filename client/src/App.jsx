@@ -9,7 +9,7 @@ import InvoiceList from './components/InvoiceList.jsx';
 const App = ({devProfile}) => {
   const [ isManaged, setIsManaged ] = useState(false);
   const [ savedProfile, setSavedProfile ] = useState(devProfile);
-  const [ invoices, setInvoices ] = useState(['1', '2']);
+  const [ invoices, setInvoices ] = useState([]);
 
 
   const fetchInvoices = () => {

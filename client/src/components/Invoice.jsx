@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const Invoice = ({invoice}) => {
-  const expandInvoice = () => {
-    //TODO: Expand the clicked invoice
-    console.log('--> Invoice cliked!');
-  }
+
+const Invoice = ({invoice, expandInvoice}) => {
+  let dateArray = invoice.orderDate.split('T');
+  let date = dateArray[0];
+  let time = dateArray[1].slice(0, 5);
 
   return ( <li className='invoice-item'
     onClick={() => {expandInvoice()}}>
-    <span className='i-number'>Invoice Number</span>
-    <span className='i-name'>Invoice Name</span>
+    <span className='i-date'>{date} {time}</span>
+    <span className='i-name'>{invoice.last}, {invoice.first}</span>
     </li>
   )
 };

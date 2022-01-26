@@ -5,7 +5,7 @@
   "private": true,
   "author": "Andrew Carnero",
   "scripts": {
-    "react-dev": "webpack -w",
+    "react-dev": "webpack --mode=development -w",
     "start": "nodemon server/index.js"
   },
   "dependencies": {
@@ -17,11 +17,14 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
+    "@babel/plugin-transform-react-jsx-source": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
     "express": "^4.17.2",
     "mongoose": "^6.1.8",
+    "style-loader": "^3.3.1",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
   }

@@ -5,13 +5,14 @@ module.exports = {
   getInvoices: (req, res) => {
     console.log('Made it to getInvoices');
     //TODO: find all invoices from db, send response
-    Invoice.find({})
-      .then((invoices) => {
+    Invoice.find({}).sort({date: 'desc'}).exec((err, invoices) => {
+      if (err) {
+        res.status(500).send('Failed to retrieve invoices from the database.', error)
+      } else {
+        console.log(invoices);
         res.status(200).json(invoices);
-      })
-      .catch((error) => {
-        res.status(500).send('Failed to retrieve invoices from the database.', error);
-      });
+      }
+    });
   },
   createInvoices: async (req, res) => {
     //TODO: Follow the googleapis documentation to for proper oAuth
@@ -83,7 +84,8 @@ module.exports = {
       return new Promise((resolve, reject) => {
         //TODO: Make sure document is not being updated if it already exists
         Invoice.findOneAndUpdate({last, orderDate},
-          { $setOnInsert: orderData }, {upsert: true, new: true})
+          {$setOnInsert: orderData, $inc: {invoiceNo: 1}},
+          {upsert: true, new: true})
           .then((result) => {
             resolve(result);
           })
