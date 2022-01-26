@@ -3,8 +3,13 @@ const Profile = require('../models/business.js');
 
 module.exports = {
   getBusinessProfile: (req, res) => {
-    console.log('Made it to getBusinessProfile');
-    //TODO: retrieve matching business profile
+    Profile.find({bName: req.query.name})
+    .then((business) => {
+      res.status(200).json(business);
+    })
+    .catch((error) => {
+      res.status(500).send('No matching business found', error);
+    });
   },
   updateBusinessProfile: (req, res) => {
     console.log('Made it to updateBusiness Profile');
@@ -14,7 +19,7 @@ module.exports = {
         res.status(204).send('');
       })
       .catch((error) => {
-        res.status(204).send('Error adding or updating the business profile', error);
-      })
+        res.status(500).send('Error adding or updating the business profile', error);
+      });
   }
 }

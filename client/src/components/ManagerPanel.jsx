@@ -4,6 +4,7 @@ import axios from 'axios';
 const ManagerPanel = ({savedProfile, isManaged}) => {
   const [ managerName, setManagerName ] = useState('');
   const [ businessProfile, setBusinessProfile ] = useState(savedProfile);
+  const [ lookupBusiness, setLookupBusiness ] = useState('');
 
   const handleManagerFormSubmit = (e) => {
     e.preventDefault();
@@ -18,10 +19,34 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
       })
   }
 
+  const handleLookupBusiness = (e) => {
+    e.preventDefault();
+    console.log('--> Lookup business clicked');
+
+    axios.get(`/business?name=${lookupBusiness}`)
+      .then((results) => {
+        console.log('Client received response!', results);
+      })
+      .catch((error) => {
+        console.log('Error receiving response from db.')
+      })
+  }
+
   return ( <div className='panel'>
     <h1>Manager Panel</h1>
     <h2>Welcome!</h2>
-    <p>To create an invoice template and save invoices, tell us a little about your business.</p>
+    <p>To create your invoice template and save invoices, tell us a little about your business.</p>
+
+    Have you been here before?
+    Type in your business name to pull up your invoices.
+    <form onSubmit={(e) => { handleLookupBusiness(e) }}>
+      <label>
+        <input type='text' value={lookupBusiness}
+          onChange={(e) => {setLookupBusiness(e.target.value)}} />
+      </label>
+      <input type='submit' className='btn submit'
+        value={isManaged ? 'Update' : 'Submit'} />
+    </form>
 
     <form onSubmit={(e) => { handleManagerFormSubmit(e) }}>
     <label>
@@ -57,6 +82,13 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
         <textarea value={businessProfile.invoiceMessage}
         onChange={(e) => {setBusinessProfile({...businessProfile, invoiceMessage: e.target.value})}}
         placeholder='This optional message will appear on each of your invoices.' />
+      </label>
+      <label>
+        Sales Tax:
+        <input type='number'
+        value={businessProfile.salesTax}
+        onChange={(e) => {setBusinessProfile({...businessProfile, salesTax: e.target.value})}}
+        placeholder='%' />
       </label>
       <input type='submit' className='btn submit'
         value={isManaged ? 'Update' : 'Submit'} />

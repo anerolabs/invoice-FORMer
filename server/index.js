@@ -16,9 +16,9 @@ app.post('/invoices', (req, res) => {
   invoice.createInvoices(req, res);
 });
 
-// app.get('/business', (req, res) => {
-//   //TODO
-// });
+app.get('/business', (req, res) => {
+  business.getBusinessProfile(req, res);
+});
 
 app.put('/business', (req, res) => {
   console.log('made it to express router');
