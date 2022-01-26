@@ -24,14 +24,76 @@ module.exports = {
     //Create Instance of Google Sheets API
     const googleSheets = google.sheets({version: 'v4', auth: client});
 
+    //Get sheet title from sheet meta data
+    const sheetMetaData = await googleSheets.spreadsheets.get({auth, spreadsheetId});
+    const sheetTitle = sheetMetaData.data.sheets[0].properties.title;
+
     //Read rows from spreadsheet
     const getRows = await googleSheets.spreadsheets.values.get({
       auth,
       spreadsheetId,
-      range: "Form Responses 1"
+      range: sheetTitle
+    });
+    const headerRow = getRows.data.values[0];
+    const invoices = getRows.data.values.slice(1);
+
+    //Parse Product Names | Must begin with '> ' and anything in [] will be removed
+    let productNames = [];
+    headerRow.forEach((header, i) => {
+      if (i > 4) {
+        if (header[0] === '>') {
+          let strippedHeader = header.slice(2);
+          const bracket = strippedHeader.indexOf('[');
+          if (bracket) {
+            strippedHeader = strippedHeader.slice(0, bracket - 1);
+          }
+          productNames.push(strippedHeader);
+        }
+      }
     });
 
+    const invoicePromises = invoices.map((invoice) => {
+      //Get Invoice Data
+      const [ orderDate, email, first, last, phone, ...products ] = invoice;
+      console.log(products);
 
-    console.log(getRows.data);
+      //Assemble receipt
+      let receipt = {};
+      let subTotal = 0;
+
+      products.forEach((product, i) => {
+        if (product !== '0') { //Do not include products with quantity value 0
+          const priceStart = product.indexOf('(');
+          const priceEnd = product.indexOf(')');
+          const quantity = product.slice(0, priceStart - 1);
+          const price = parseFloat(product.slice(priceStart + 2, priceEnd));
+          subTotal = subTotal + price;
+          receipt[productNames[i]] = [quantity, price];
+        }
+      });
+      receipt = JSON.stringify(receipt);
+      const orderData = { orderDate, email, first, last, phone, receipt, subTotal };
+
+      return new Promise((resolve, reject) => {
+        //TODO: Make sure document is not being updated if it already exists
+        Invoice.findOneAndUpdate({last, orderDate},
+          { $setOnInsert: orderData }, {upsert: true, new: true})
+          .then((result) => {
+            resolve(result);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      })
+    });
+
+    Promise.all(invoicePromises)
+      .then((results) => {
+        console.log(results);
+      })
+      .catch((error) => {
+        console.log('Error updating the database');
+      })
+    console.log(invoicePromises);
   }
 }
