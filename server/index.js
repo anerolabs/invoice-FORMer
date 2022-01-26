@@ -8,18 +8,11 @@ app.use(express.json());
 const business = require('../database/controllers/business.js');
 const invoice = require('../database/controllers/invoice.js');
 
-//TODO: fix static files not rendering correctly
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
-
-// app.get('/invoices', (req, res) => {
-//   //TODOa
-// });
+app.get('/invoices', (req, res) => {
+  invoice.getInvoices(req, res);
+});
 
 app.post('/invoices', (req, res) => {
-  console.log('made it to express router');
   invoice.createInvoices(req, res);
 });
 

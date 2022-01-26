@@ -4,9 +4,9 @@ mongoose.connect('mongodb://localhost:27017/former');
 const db = mongoose.connection;
 
 db.on('error', () => {
-  console.log('mongoose connection error');
+  console.log('--> Mongoose failed to connect');
 });
 
 db.once('open', () => {
-  console.log('mongoose connected successfully');
+  console.log('--> Mongoose connected!');
 });

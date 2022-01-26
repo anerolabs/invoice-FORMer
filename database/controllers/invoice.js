@@ -5,10 +5,16 @@ module.exports = {
   getInvoices: (req, res) => {
     console.log('Made it to getInvoices');
     //TODO: find all invoices from db, send response
+    Invoice.find({})
+      .then((invoices) => {
+        res.status(200).json(invoices);
+      })
+      .catch((error) => {
+        res.status(500).send('Failed to retrieve invoices from the database.', error);
+      });
   },
   createInvoices: async (req, res) => {
     //TODO: Follow the googleapis documentation to for proper oAuth
-
     console.log('Made it to createInvoice');
     const spreadsheetId = req.body.spreadsheetId;
     console.log(spreadsheetId);
@@ -88,12 +94,11 @@ module.exports = {
     });
 
     Promise.all(invoicePromises)
-      .then((results) => {
-        console.log(results);
+      .then(() => {
+        res.status(200).send();
       })
       .catch((error) => {
-        console.log('Error updating the database');
+        res.status(500).send('Failed to add invoices to the database.', error);
       })
-    console.log(invoicePromises);
   }
 }
