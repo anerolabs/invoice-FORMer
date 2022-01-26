@@ -5,9 +5,10 @@ const Profile = mongoose.model('Profile', {
   managerName: String,
   bName: String,
   bPhone: String,
-  bLogo: String,
+  bLogoUrl: String,
   bWebsite: String,
-  invoiceMessage: String
+  invoiceMessage: String,
+  salesTax: Number
 });
 
 module.exports = Profile;

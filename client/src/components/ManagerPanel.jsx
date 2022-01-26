@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ManagerPanel = ({savedProfile, isManaged}) => {
+const ManagerPanel = ({savedProfile, isManaged, setSavedProfile}) => {
   const [ managerName, setManagerName ] = useState('');
   const [ businessProfile, setBusinessProfile ] = useState(savedProfile);
   const [ lookupBusiness, setLookupBusiness ] = useState('');
@@ -13,8 +13,10 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
     axios.put('/business', businessProfile)
       .then((results) => {
         console.log('Client received response!', results);
+        //TODO: add user status message
       })
       .catch((error) => {
+        //TODO: add user status message
         console.log('Error receiving response from db.')
       })
   }
@@ -26,6 +28,8 @@ const ManagerPanel = ({savedProfile, isManaged}) => {
     axios.get(`/business?name=${lookupBusiness}`)
       .then((results) => {
         console.log('Client received response!', results);
+        setSavedProfile(results.data[0]);
+        setBusinessProfile(results.data[0]);
       })
       .catch((error) => {
         console.log('Error receiving response from db.')
