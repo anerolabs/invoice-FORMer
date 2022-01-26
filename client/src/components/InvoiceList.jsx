@@ -3,7 +3,7 @@ import Invoice from './Invoice.jsx';
 import InvoiceModal from './InvoiceModal.jsx';
 
 
-const InvoiceList = ({invoices}) => {
+const InvoiceList = ({invoices, savedProfile}) => {
   const [ showModal, setShowModal ] = useState(false);
   const [ currentInvoice, setCurrentInvoice ] = useState(1);
 
@@ -14,7 +14,8 @@ const InvoiceList = ({invoices}) => {
   let invoiceModal = '';
   if (showModal) {
     invoiceModal = <InvoiceModal expandInvoice={expandInvoice}
-      targetInvoice={invoices[currentInvoice]} />
+      invoiceData={invoices[currentInvoice]}
+      savedProfile={savedProfile} />
   }
 
   return ( <div className='panel'>

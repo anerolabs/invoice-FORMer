@@ -1,9 +1,9 @@
 const Invoice = require('../models/invoice.js');
 const { google } = require('googleapis');
 
-let invoiceCounter = "1";
-let invoiceNumber = invoiceCounter.padStart(4, "0");
-
+let invoiceCounter = 1;
+//TODO: improve invoice numbering system to be more
+//      reliable
 
 module.exports = {
   getInvoices: (req, res) => {
@@ -83,7 +83,12 @@ module.exports = {
         }
       });
       receipt = JSON.stringify(receipt);
-      const orderData = { orderDate, email, first, last, phone, receipt, subTotal };
+
+      let invoiceNumber = invoiceCounter.toString().padStart(4, "0");
+
+      const orderData = { orderDate, email, first, last, phone, receipt, subTotal, invoiceNumber };
+
+      invoiceCounter++;
 
       return new Promise((resolve, reject) => {
         //TODO: Make sure document is not being updated if it already exists
@@ -96,7 +101,7 @@ module.exports = {
           .catch((error) => {
             reject(error);
           });
-      })
+      });
     });
 
     Promise.all(invoicePromises)

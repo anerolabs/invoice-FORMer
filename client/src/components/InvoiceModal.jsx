@@ -1,7 +1,8 @@
 import React from 'react';
 
-const InvoiceModal = ({expandInvoice, targetInvoice}) => {
-  console.log(targetInvoice);
+const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
+  console.log(invoiceData);
+  console.log(savedProfile);
 
   return ( <div className='modal-fill'
     onClick={() => {expandInvoice()}}>

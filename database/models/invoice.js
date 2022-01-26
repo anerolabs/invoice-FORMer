@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Invoice = mongoose.model('Invoice', {
   //TODO: Build schema
+  invoiceNumber: Number,
   orderDate: Date,
   email: String,
   first: String,
