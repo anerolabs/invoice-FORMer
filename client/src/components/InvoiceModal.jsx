@@ -9,11 +9,11 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
       <div className='modal-content'>
 
         <div className='modal-header'>
-          <div className='1'>
+          <div className='m-h-left'>
             <img src='./img/wingsandrings.jpg' />
           </div>
-          <div className='2'>
-            <span className='i-title'>Order Summary</span>
+          <div className='m-h-right'>
+            <span className='i-title'>Order Invoice</span>
             <span className='i-h2'>Customer Name:</span>
             <span className='i-v'>{invoiceData.first} {invoiceData.last}</span>
             <span className='i-h2'>Customer Name:</span>
@@ -34,9 +34,15 @@ const InvoiceModal = ({expandInvoice, invoiceData, savedProfile}) => {
             Receipt details here
           </div>
           <div className='i-total'>
-            Subtotal: {invoiceData.subTotal}
-            Tax: TAX HERE
-            Total: {invoiceData.subTotal}
+            <span className='i-t-s'>
+              Subtotal: {invoiceData.subTotal}
+            </span>
+            <span className='i-t-x'>
+              Tax: TAX HERE
+            </span>
+            <span className='i-t-t'>
+              Total: {invoiceData.subTotal}
+            </span>
           </div>
         </div>
 
