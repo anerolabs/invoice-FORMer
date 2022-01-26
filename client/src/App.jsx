@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Header from './components/Header.jsx';
 import ManagerPanel from './components/ManagerPanel.jsx';
 import Linker from './components/Linker.jsx';
 import InvoiceList from './components/InvoiceList.jsx';
-import axios from 'axios';
 
 
 const App = ({devProfile}) => {
@@ -43,16 +44,22 @@ const App = ({devProfile}) => {
     //if (!isManaged) { fetchBusinessProfile(); }
   }, []);
 
-  return ( <div className='container'>
-      <h1>Invoice FORMer</h1>
-      <ManagerPanel
-        isManaged={isManaged}
-        savedProfile={savedProfile} />
-      <Linker
-        isManaged={isManaged}
-        fetchInvoices={fetchInvoices} />
-      <InvoiceList invoices={invoices} />
+  return ( <>
+      <Header />
+      <div className='container'>
+      <div className='left'>
+        <ManagerPanel
+          isManaged={isManaged}
+          savedProfile={savedProfile} />
+      </div>
+      <div className='right'>
+        <Linker
+          isManaged={isManaged}
+          fetchInvoices={fetchInvoices} />
+        <InvoiceList invoices={invoices} />
+      </div>
     </div>
+    </>
   )
 };
 
